@@ -1,0 +1,13 @@
+<project default="create_library_jar" name="Create Saria-Toolkit Jar Library" >
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/../.."/>
+    <property name="dir.jarfile" value="${dir.workspace}/lib"/>
+
+    <target name="create_library_jar">
+        <jar destfile="${dir.jarfile}/saria-toolkit.jar">
+            <fileset dir="${dir.workspace}/saria-toolkit/bin"/>
+        </jar>
+        <echo message="Libreria JAR non eseguibile creata in: ${dir.jarfile}/saria-toolkit.jar"/>
+    </target>
+
+</project> 
