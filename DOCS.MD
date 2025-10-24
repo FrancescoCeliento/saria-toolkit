@@ -1,4 +1,4 @@
-# DOCS - Saria Toolkit 0.0.6
+# DOCS - Saria Toolkit 0.0.7-alpha
 ## NETWORK
 ### FileDownloader
 #### download
@@ -7,14 +7,18 @@ Scarica un file da un URL e lo salva in una directory locale, mantenendo il nome
 #### download
 Scarica un file da un URL e lo salva in una directory locale, rinominandolo con il nome specificato.
 
-#### main
-Esempio di utilizzo (main method)
+### RssReader
+#### setUrl
+Configura l'URL del feed RSS da leggere
+
+#### read
+Legge e parsifica il feed RSS dall'URL configurato
 
 ### UrlFetcher
 This class deals with retrieving data from URL.
 
 #### readUrl
-This class deals with retrieving data from URL.
+Calls a target URL and receives the body response in String format
 
 #### getJsonResponse
 Calls a target URL and receives the body response in JSON format
@@ -24,7 +28,7 @@ Calls a target URL and receives the body response in JSON format
 Class for managing GitHub API
 
 #### getLastTag
-Class for managing GitHub API
+Reads the latest tag released from a repository
 
 ### MastodonAPI
 Class for managing Mastodon API
@@ -37,7 +41,7 @@ Class for managing Telegram API
 Manages date conversion.
 
 #### dateToString
-Manages date conversion.
+Function to convert java.util.Date to String.
 
 #### stringToDateWithThrow
 Function to convert String to java.util.Date
@@ -60,7 +64,7 @@ Verifica l'esistenza di un file che soddisfi i criteri specificati.
 Classe per la gestione completa dei permessi, della proprietà e degli attributi speciali di un file utilizzando l'API Java NIO
 
 #### getFilePath
-Classe per la gestione completa dei permessi, della proprietà e degli attributi speciali di un file utilizzando l'API Java NIO
+Ottiene il percorso del file attualmente gestito
 
 #### setFilePath
 Imposta il percorso del file da gestire
@@ -124,7 +128,7 @@ Determina e restituisce il tipo di sistema operativo in uso
 Manages timers
 
 #### sleep
-Manages timers
+Executes Thread.sleep with internal exception handling.
 
 #### waitForSeconds
 Sleep cycle for the desired seconds.
@@ -137,28 +141,31 @@ Sleep cycle for the desired minutes.
 Manages CSV.
 
 #### makeRow
-Manages CSV.
+Create a CSV row from a set of fields.
 
 ## VALIDATOR
 ### JsonValidator
 Manages JSON format validations.
 
 #### isValid
-Manages JSON format validations.
+Checks that the JSON is correct.
 
 ### YouTubeValidator
 ## IO
 ### JsonIO
 Class for reading data from JSON.
 
+#### readKeys
+Returns a list of values that match the key.
+
 #### readKey
-Class for reading data from JSON.
+Returns the value that match the key.
 
 ### KeyboardInput
 Simplify keyboard input usage
 
 #### waitEnter
-Simplify keyboard input usage
+Pause the application until the ENTER button is pressed
 
 #### getInputStringFromConsole
 Pause the application until the ENTER button is pressed
