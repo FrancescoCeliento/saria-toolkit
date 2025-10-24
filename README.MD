@@ -19,5 +19,5 @@ JDK 1.8+
 ## How to use
 Download the .jar file and add it to the project. It has no dependencies and therefore does not create conflicts with existing projects.
 
-## Doc
-[Read the doc](https://github.com/FrancescoCeliento/saria-toolkit/blob/main/DOCS.MD)
+## Read the Docs
+[Read the Docs](https://francescoceliento.github.io/saria-toolkit/)
