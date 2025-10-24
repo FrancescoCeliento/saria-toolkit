@@ -31,12 +31,13 @@ public class MarkdownDocsGenerator {
     // Pattern per trovare un metodo con il suo Javadoc precedente.
     // Cerca: un commento Javadoc /** ... */, seguito da una dichiarazione di metodo pubblica.
     private static final Pattern METHOD_PATTERN = Pattern.compile(
-    	    "/\\*\\*((?:[^*]|\\*(?!/))*)\\*/\\s*" +          // Javadoc
-    	    "(?:public|protected|private)\\s+" +             // Qualsiasi visibilità
-    	    "(?:(?:static|final|abstract)\\s+)*" +           // Modificatori opzionali
-    	    "[\\w<>\\[\\]]+\\s+" +                          // Tipo di ritorno
-    	    "(\\w+)\\s*\\([^)]*\\)\\s*" +                   // Nome del metodo + parametri
-    	    "(?:\\{?|;)",                                   // Apertura graffa o punto e virgola
+    	    "/\\*\\*((?:[^*]|\\*(?!/))*)\\*/\\s*" +             // (1) Javadoc
+    	    "(?:public|protected|private)\\s+" +                 // Visibilità
+    	    "(?:(?:static|final|abstract|synchronized)\\s+)*" +  // Modificatori opzionali
+    	    "([\\w<>\\[\\]]+)\\s+" +                            // (2) Tipo di ritorno
+    	    "(\\w+)\\s*" +                                      // (3) Nome del metodo
+    	    "\\(([^)]*)\\)\\s*" +                               // (4) Parametri
+    	    "(?:\\{?|;)",                                       // Fine dichiarazione
     	    Pattern.DOTALL
     	);
     
@@ -147,13 +148,17 @@ public class MarkdownDocsGenerator {
 
             // *** IL CICLO while(find()) DEVE SCORRERE TUTTE LE OCCORRENZE ***
             while (methodMatcher.find()) {
-                String rawJavadoc = methodMatcher.group(1); 
-                String methodName = methodMatcher.group(2); 
+            	String rawJavadoc = methodMatcher.group(1);
+                String returnType = methodMatcher.group(2);
+                String methodName = methodMatcher.group(3);
+                String parameters = methodMatcher.group(4).trim();
 
                 String description = extractDescriptionFromJavadoc(rawJavadoc);
+                
+                if (parameters.isEmpty()) parameters = "";
 
                 // Scrivi la sezione del metodo nel file Markdown
-                writer.write("#### " + methodName + "\n");
+                writer.write("#### " + returnType + " " + methodName + "(" + parameters + ")\n");
                 writer.write(description + "\n\n");
             }
 

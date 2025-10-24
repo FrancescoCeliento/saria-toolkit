@@ -1,33 +1,33 @@
 # DOCS - Saria Toolkit 0.0.7-alpha
 ## NETWORK
 ### FileDownloader
-#### download
+#### String download(String source, String localDir)
 Scarica un file da un URL e lo salva in una directory locale, mantenendo il nome del file originale.
 
-#### download
+#### String download(String source, String localDir, String name)
 Scarica un file da un URL e lo salva in una directory locale, rinominandolo con il nome specificato.
 
 ### RssReader
-#### setUrl
+#### void setUrl(String urlString)
 Configura l'URL del feed RSS da leggere
 
-#### read
+#### List<RssItem> read()
 Legge e parsifica il feed RSS dall'URL configurato
 
 ### UrlFetcher
 This class deals with retrieving data from URL.
 
-#### readUrl
+#### String readUrl(String targetUrl)
 Calls a target URL and receives the body response in String format
 
-#### getJsonResponse
+#### String getJsonResponse(String targetUrl)
 Calls a target URL and receives the body response in JSON format
 
 ## API
 ### GitHubAPI
 Class for managing GitHub API
 
-#### getLastTag
+#### String getLastTag(String author, String repository)
 Reads the latest tag released from a repository
 
 ### MastodonAPI
@@ -40,114 +40,114 @@ Class for managing Telegram API
 ### DateConverter
 Manages date conversion.
 
-#### dateToString
+#### String dateToString(Date date, String pattern)
 Function to convert java.util.Date to String.
 
-#### stringToDateWithThrow
+#### Date stringToDateWithThrow(String dateString, String pattern)
 Function to convert String to java.util.Date
 
-#### stringToDate
+#### Date stringToDate(String dateString, String pattern)
 Function to convert String to java.util.Date with internal exception handling
 
 ## SYSTEM
 ### ClassUtils
 
 
-#### getClassName
+#### String getClassName()
 
 
 ### Explorer
-#### fileExist
+#### boolean fileExist(String dir, String search, String ext, TypeSearch typeSearch, Include include, boolean subFolder)
 Verifica l'esistenza di un file che soddisfi i criteri specificati.
 
 ### FilePermissionManager
 Classe per la gestione completa dei permessi, della proprietà e degli attributi speciali di un file utilizzando l'API Java NIO
 
-#### getFilePath
+#### Path getFilePath()
 Ottiene il percorso del file attualmente gestito
 
-#### setFilePath
+#### void setFilePath(Path filePath)
 Imposta il percorso del file da gestire
 
-#### setPermission
+#### void setPermission(Principal principal, Permission permission, boolean enabled)
 Imposta o rimuove un permesso specifico per un Principal
 
-#### getPermission
+#### boolean getPermission(Principal principal, Permission permission)
 Verifica se un permesso specifico è abilitato per un Principal
 
-#### setChmod
+#### void setChmod(int chmod)
 Imposta i permessi con notazione numerica (chmod 3 o 4 cifre). Gestisce anche i permessi speciali (Setuid: 4, Setgid: 2, Sticky: 1)
 
-#### getChmod
+#### int getChmod()
 Ottiene i permessi attuali in notazione numerica (chmod 4 cifre)
 
-#### setChmod
+#### void setChmod(String symbolicChmod)
 Imposta i permessi con notazione simbolica (es. "g+w", "u-x,a+r"). Supporta solo gli operatori '+' (aggiungi) e '-' (rimuovi).
 
-#### setPermission
+#### void setPermission(String extendedPermission)
 Imposta i permessi utilizzando la notazione estesa (rwxr-xr-x)
 
-#### getPermission
+#### String getPermission()
 Ottiene i permessi attuali in notazione estesa (rwxr-xr-x)
 
-#### getOwner
+#### String getOwner()
 Legge il nome del proprietario del file (chown)
 
-#### setOwner
+#### void setOwner(String ownerName)
 Cambia il proprietario del file (chown)
 
-#### getGroup
+#### String getGroup()
 Legge il nome del gruppo proprietario del file (chgrp)
 
-#### setGroup
+#### void setGroup(String groupName)
 Cambia il gruppo proprietario del file (chgrp)
 
-#### isSetuidEnabled
+#### boolean isSetuidEnabled()
 Verifica l'abilitazione del permesso speciale Setuid
 
-#### setSetuidEnabled
+#### void setSetuidEnabled(boolean enabled)
 Imposta il permesso speciale Setuid
 
-#### isSetgidEnabled
+#### boolean isSetgidEnabled()
 Verifica l'abilitazione del permesso speciale Setgid
 
-#### setSetgidEnabled
+#### void setSetgidEnabled(boolean enabled)
 Imposta l'abilitazione del permesso speciale Setgid
 
-#### isStickyBitEnabled
+#### boolean isStickyBitEnabled()
 Verifica l'abilitazione del permesso speciale Sticky Bit
 
-#### setStickyBitEnabled
+#### void setStickyBitEnabled(boolean enabled)
 Imposta l'abilitazione del permesso speciale Sticky Bit
 
 ### SystemViewer
-#### getOperatingSystemType
+#### OperatingSystemType getOperatingSystemType()
 Determina e restituisce il tipo di sistema operativo in uso
 
 ### TimerSystem
 Manages timers
 
-#### sleep
+#### void sleep(int millisecond)
 Executes Thread.sleep with internal exception handling.
 
-#### waitForSeconds
+#### void waitForSeconds(int seconds)
 Sleep cycle for the desired seconds.
 
-#### waitForMinutes
+#### void waitForMinutes(int minutes)
 Sleep cycle for the desired minutes.
 
 ## TEXT
 ### CSVUtility
 Manages CSV.
 
-#### makeRow
+#### String makeRow(String separator, String...fields)
 Create a CSV row from a set of fields.
 
 ## VALIDATOR
 ### JsonValidator
 Manages JSON format validations.
 
-#### isValid
+#### boolean isValid(String json)
 Checks that the JSON is correct.
 
 ### YouTubeValidator
@@ -155,27 +155,27 @@ Checks that the JSON is correct.
 ### JsonIO
 Class for reading data from JSON.
 
-#### readKeys
+#### List<String> readKeys(String json, String key)
 Returns a list of values that match the key.
 
-#### readKey
+#### String readKey(String json, String key)
 Returns the value that match the key.
 
 ### KeyboardInput
 Simplify keyboard input usage
 
-#### waitEnter
+#### void waitEnter()
 Pause the application until the ENTER button is pressed
 
-#### getInputStringFromConsole
+#### String getInputStringFromConsole()
 Pause the application until the ENTER button is pressed
 
-#### getInputIntFromConsole
+#### Integer getInputIntFromConsole()
 Read input Integer from console
 
-#### getInputDoubleFromConsole
+#### Double getInputDoubleFromConsole()
 Read input Double from console
 
-#### getInputDateFromConsole
+#### Date getInputDateFromConsole(String pattern)
 Read input Date from console
 
