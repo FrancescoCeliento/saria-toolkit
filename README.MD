@@ -1,5 +1,5 @@
 # Saria Toolkit
-[![Latest Version](https://img.shields.io/github/release/FrancescoCeliento/saria-toolkit.svg?color=5998FF&label=latest%20version&style=flat-square)](https://github.com/RetroGFX/UnofficialOS/releases/latest)
+[![Latest Version](https://img.shields.io/github/release/FrancescoCeliento/saria-toolkit.svg?color=5998FF&label=latest%20version&style=flat-square)](https://github.com/FrancescoCeliento/saria-toolkit/releases/latest)
 
 **saria‑toolkit** is a Java library designed to 
 simplify and accelerate application development by providing a complete set of tools, helpers, converters, and various functions.
