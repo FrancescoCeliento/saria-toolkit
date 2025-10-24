@@ -9,8 +9,8 @@ import com.francescoceliento.api.GitHubAPI;
  */
 public class Saria {
 
-	private static String version = "0.0.5";
-	private static String date = "23/10/2025";
+	private static String version = "0.0.6";
+	private static String date = "24/10/2025";
 	
 	private static String NAME = "Saria Toolkit";
 	private static String INFO =   "Saria, Kokiri from Ocarina of Time, is Link's best friend.\n"
@@ -30,6 +30,10 @@ public class Saria {
 		System.out.println(NAME + " v" + version);
 		check();
 		System.out.println(INFO);
+	}
+	
+	public static String getName() {
+		return NAME.toString();
 	}
 	/**
 	 * Get library info.

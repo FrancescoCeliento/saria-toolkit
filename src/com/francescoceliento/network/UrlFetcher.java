@@ -14,7 +14,7 @@ import com.francescoceliento.validator.JsonValidator;
 public class UrlFetcher {
 	
 	/**
-	 * 
+	 * Calls a target URL and receives the body response in String format
 	 * @author @francescoceliento@github.com
 	 *
 	 * @param targetUrl
@@ -47,7 +47,7 @@ public class UrlFetcher {
 	}
 	
 	/**
-	 * Calls a target URL and receives the response in JSON format.
+	 * Calls a target URL and receives the body response in JSON format
 	 * @author @francescoceliento@github.com
 	 * 
 	 * @param targetUrl

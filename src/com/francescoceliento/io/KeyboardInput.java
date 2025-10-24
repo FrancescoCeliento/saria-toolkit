@@ -9,14 +9,16 @@ import java.util.Scanner;
 import com.francescoceliento.converter.DateConverter;
 
 /**
- * Simplify keyboard input usage.
+ * Simplify keyboard input usage
  * @author @francescoceliento@github.com
+ *
  */
 public class KeyboardInput {
 		
 	/**
-	 * Pause the application until the ENTER button is pressed.
+	 * Pause the application until the ENTER button is pressed
 	 * @author @francescoceliento@github.com
+	 *
 	 */
 	public static void waitEnter() {
 		Scanner scanner = new Scanner(System.in);
@@ -29,10 +31,10 @@ public class KeyboardInput {
 	}
 	
 	/**
-	 * Read input text.
+	 * Pause the application until the ENTER button is pressed
 	 * @author @francescoceliento@github.com
-	 * 
-	 * @return String
+	 *
+	 * @return
 	 */
 	public static String getInputStringFromConsole() {
 		Scanner scanner = new Scanner(System.in);
@@ -48,10 +50,10 @@ public class KeyboardInput {
 	}
 	
 	/**
-	 * Read input Integer.
+	 * Read input Integer from console
 	 * @author @francescoceliento@github.com
-	 * 
-	 * @return Integer
+	 *
+	 * @return
 	 */
 	public static Integer getInputIntFromConsole() {
 		Scanner scanner = new Scanner(System.in);
@@ -67,10 +69,10 @@ public class KeyboardInput {
 	}
 	
 	/**
-	 * Read input Double.
+	 * Read input Double from console
 	 * @author @francescoceliento@github.com
 	 *
-	 * @return Double
+	 * @return
 	 */
 	public static Double getInputDoubleFromConsole() {
         try {
@@ -83,6 +85,13 @@ public class KeyboardInput {
 		}
     }
 	
+	/**
+	 * Read input Date from console
+	 * @author @francescoceliento@github.com
+	 *
+	 * @param pattern
+	 * @return
+	 */
 	public static Date getInputDateFromConsole(String pattern) {
 		try {
 			String input = getInputStringFromConsole();

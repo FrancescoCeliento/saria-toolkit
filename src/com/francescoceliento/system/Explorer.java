@@ -8,13 +8,11 @@ import java.util.stream.Stream;
 
 public class Explorer {
 	
-	// 1. Enum per la modalità di ricerca (case-sensitive o case-insensitive)
 	public enum TypeSearch {
 	    CASESENSITIVE,
 	    CASEINSENSITIVE
 	}
 
-	// 2. Enum per la logica di inclusione (esattamente, contiene, esclude)
 	public enum Include {
 	    EXACTLY,    // Il nome del file deve corrispondere esattamente a 'search'
 	    CONTAINS,   // Il nome del file deve contenere 'search'

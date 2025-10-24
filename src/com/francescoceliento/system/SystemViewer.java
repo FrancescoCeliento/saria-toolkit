@@ -2,9 +2,7 @@ package com.francescoceliento.system;
 
 public class SystemViewer {
 
-    /**
-     * Enum per rappresentare i tipi di sistema operativo.
-     */
+    //Enum per rappresentare i tipi di sistema operativo
     public enum OperatingSystemType {
         WINDOWS,
         MACOS,
@@ -13,7 +11,9 @@ public class SystemViewer {
     }
 
     /**
-     * Determina e restituisce il tipo di sistema operativo in uso.
+     * Determina e restituisce il tipo di sistema operativo in uso
+     * @author @francescoceliento@github.com
+     *
      * @return OperatingSystemType
      */
     public static OperatingSystemType getOperatingSystemType() {

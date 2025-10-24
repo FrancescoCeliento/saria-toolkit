@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class for reading data from JSON 
+ * Class for reading data from JSON.
  * @author @francescoceliento@github.com
   */
 public class JsonIO {

@@ -1,0 +1,9 @@
+# Cartelle da escludere
+/bin/
+/ant-build/
+/.settings/
+
+# Tutti i file .class, in qualsiasi directory
+**/*.class
+**/*.classpath
+**/*.project

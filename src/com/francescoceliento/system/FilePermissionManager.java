@@ -13,28 +13,25 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Classe per la gestione completa dei permessi, della proprietà e degli attributi speciali
- * di un file utilizzando l'API Java NIO.2 (PosixFilePermissions).
- * * NOTA: Le funzionalità POSIX (permessi rwx, chown, chgrp) sono supportate
- * solo su sistemi operativi Unix-like (Linux, macOS).
- * Compatibile con versioni Java 8 e successive.
+ * Classe per la gestione completa dei permessi, della proprietà e degli attributi speciali di un file utilizzando l'API Java NIO
+ * @author @francescoceliento@github.com
+ *
  */
 public class FilePermissionManager {
 
     private Path filePath;
 
-    // Rappresenta i tipi di permessi standard.
+    // Rappresenta i tipi di permessi standard
     public enum Permission {
         READ, WRITE, EXECUTABLE
     }
 
-	// Rappresenta i principali destinatari dei permessi.
+	// Rappresenta i principali destinatari dei permessi
     public enum Principal {
         USER, GROUP, OTHER, ALL
     }
 
     // Mappa per tradurre i nostri enum in PosixFilePermission standard
-    // Inizializzazione con blocco statico per compatibilità con Java < 9 (dove Map.of non esiste)
     private static final Map<Principal, Map<Permission, PosixFilePermission>> PERMISSION_MAP;
     
     static {
@@ -65,88 +62,87 @@ public class FilePermissionManager {
     }
 
     /**
-     * Costruttore che accetta un oggetto File.
-     * @param file Il file da gestire.
+     * Costruttore che accetta un oggetto File
+     * @author @francescoceliento@github.com
+     *
+     * @param file
      */
     public FilePermissionManager(File file) {
         this.filePath = file.toPath();
     }
     
-    /**
-     * Costruttore che accetta un oggetto Path.
-     * @param path Il percorso del file da gestire.
-     */
+   /**
+    * Costruttore che accetta un oggetto Path
+    * @author @francescoceliento@github.com
+    *
+    * @param path
+    */
     public FilePermissionManager(Path path) {
         this.filePath = path;
     }
     
     /**
-     * Costruttore che accetta un percorso Stringa.
-     * @param path Il percorso del file da gestire.
+     * Costruttore che accetta un percorso String
+     * @author @francescoceliento@github.com
+     *
+     * @param path
      */
     public FilePermissionManager(String path) {
         this.filePath = Paths.get(path);
     }
 
     /**
-     * Ottiene il percorso del file attualmente gestito.
-     * @return Il Path del file.
+     * Ottiene il percorso del file attualmente gestito
+     * @author @francescoceliento@github.com
+     *
+     * @return
      */
     public Path getFilePath() {
         return filePath;
     }
 
     /**
-     * Imposta il percorso del file da gestire.
-     * @param filePath Il Path del nuovo file.
+     * Imposta il percorso del file da gestire
+     * @author @francescoceliento@github.com
+     *
+     * @param filePath
      */
     public void setFilePath(Path filePath) {
         this.filePath = filePath;
     }
     
-    /**
-     * Verifica se il filesystem supporta le viste attributi POSIX.
-     * @throws UnsupportedOperationException se i permessi POSIX non sono supportati.
-     */
-    private void checkPosixSupport() {
+    // Verifica se il filesystem supporta le viste attributi POSIX
+    private void checkPosixSupport() throws UnsupportedOperationException {
         if (!filePath.getFileSystem().supportedFileAttributeViews().contains("posix")) {
             throw new UnsupportedOperationException("Il filesystem non supporta i permessi POSIX per il file: " + filePath);
         }
     }
 
-    /**
-     * Ottiene l'attuale set di permessi POSIX del file.
-     * @return Set<PosixFilePermission> dei permessi attuali.
-     * @throws IOException Se si verifica un errore I/O.
-     */
+    // Ottiene l'attuale set di permessi POSIX del file
     private Set<PosixFilePermission> getCurrentPermissions() throws IOException {
         checkPosixSupport();
         return Files.getPosixFilePermissions(filePath);
     }
 
-    /**
-     * Imposta un nuovo set di permessi POSIX sul file.
-     * @param perms Il set di permessi da impostare.
-     * @throws IOException Se si verifica un errore I/O.
-     */
+    // Imposta un nuovo set di permessi POSIX sul file
     private void setCurrentPermissions(Set<PosixFilePermission> perms) throws IOException {
         checkPosixSupport();
         Files.setPosixFilePermissions(filePath, perms);
     }
 
-    /**
-     * Ottiene la PosixFilePermission corrispondente ai nostri enum.
-     */
+    // Ottiene la PosixFilePermission corrispondente ai nostri enum
     private PosixFilePermission getPosixPerm(Principal principal, Permission permission) {
         return PERMISSION_MAP.get(principal).get(permission);
     }
     
     /**
-     * Imposta o rimuove un permesso specifico per un Principal.
-     * @param principal USER, GROUP, OTHER o ALL.
-     * @param permission READ, WRITE o EXECUTABLE.
-     * @param enabled true per abilitare, false per disabilitare.
-     * @throws IOException Se si verifica un errore I/O.
+     * Imposta o rimuove un permesso specifico per un Principal
+     * @author @francescoceliento@github.com
+     *
+     * @param principal
+     * @param permission
+     * @param enabled
+     * @throws IOException
      */
     public void setPermission(Principal principal, Permission permission, boolean enabled) throws IOException {
         Set<PosixFilePermission> currentPerms = getCurrentPermissions();
@@ -172,11 +168,13 @@ public class FilePermissionManager {
     }
 
     /**
-     * Verifica se un permesso specifico è abilitato per un Principal.
-     * @param principal USER, GROUP, OTHER o ALL.
-     * @param permission READ, WRITE o EXECUTABLE.
-     * @return true se il permesso è abilitato.
-     * @throws IOException Se si verifica un errore I/O.
+     * Verifica se un permesso specifico è abilitato per un Principal
+     * @author @francescoceliento@github.com
+     *
+     * @param principal
+     * @param permission
+     * @return
+     * @throws IOException
      */
     public boolean getPermission(Principal principal, Permission permission) throws IOException {
         if (principal == Principal.ALL) {
@@ -191,9 +189,7 @@ public class FilePermissionManager {
         return currentPerms.contains(posixPerm);
     }
     
-    /**
-     * Converte i permessi POSIX (9 bit) in formato ottale (3 cifre).
-     */
+    // Converte i permessi POSIX (9 bit) in formato ottale (3 cifre)
     private int permissionsToOctal(Set<PosixFilePermission> perms) {
         int octal = 0;
         // User (400, 200, 100)
@@ -211,9 +207,7 @@ public class FilePermissionManager {
         return octal;
     }
 
-    /**
-     * Converte un valore ottale (3 cifre) in un Set di permessi POSIX (9 bit).
-     */
+    // Converte un valore ottale (3 cifre) in un Set di permessi POSIX (9 bit)
     private Set<PosixFilePermission> octalToPermissions(int octal) {
         Set<PosixFilePermission> perms = EnumSet.noneOf(PosixFilePermission.class);
         int owner = (octal / 100) % 10;
@@ -256,10 +250,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Imposta i permessi con notazione numerica (chmod 3 o 4 cifre).
-     * Gestisce anche i permessi speciali (Setuid: 4, Setgid: 2, Sticky: 1).
-     * @param chmod Il valore numerico (es. 755 o 4755).
-     * @throws IOException Se si verifica un errore I/O.
+     * Imposta i permessi con notazione numerica (chmod 3 o 4 cifre). Gestisce anche i permessi speciali (Setuid: 4, Setgid: 2, Sticky: 1)
+     * @author @francescoceliento@github.com
+     *
+     * @param chmod
+     * @throws IOException
      */
     public void setChmod(int chmod) throws IOException {
         if (chmod < 0 || chmod > 7777) {
@@ -280,9 +275,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Ottiene i permessi attuali in notazione numerica (chmod 4 cifre).
-     * @return Il valore chmod a 4 cifre.
-     * @throws IOException Se si verifica un errore I/O.
+     * Ottiene i permessi attuali in notazione numerica (chmod 4 cifre)
+     * @author @francescoceliento@github.com
+     *
+     * @return
+     * @throws IOException
      */
     public int getChmod() throws IOException {
         int octal = permissionsToOctal(getCurrentPermissions());
@@ -298,10 +295,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Imposta i permessi con notazione simbolica (es. "g+w", "u-x,a+r").
-     * Supporta solo gli operatori '+' (aggiungi) e '-' (rimuovi).
-     * @param symbolicChmod La stringa dei permessi simbolici.
-     * @throws IOException Se si verifica un errore I/O.
+     * Imposta i permessi con notazione simbolica (es. "g+w", "u-x,a+r"). Supporta solo gli operatori '+' (aggiungi) e '-' (rimuovi).
+     * @author @francescoceliento@github.com
+     *
+     * @param symbolicChmod
+     * @throws IOException
      */
     public void setChmod(String symbolicChmod) throws IOException {
         String[] operations = symbolicChmod.replaceAll("\\s+", "").toLowerCase().split(",");
@@ -349,9 +347,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Imposta i permessi utilizzando la notazione estesa (rwxr-xr-x).
-     * @param extendedPermission La stringa dei permessi (9 caratteri).
-     * @throws IOException Se si verifica un errore I/O.
+     * Imposta i permessi utilizzando la notazione estesa (rwxr-xr-x)
+     * @author @francescoceliento@github.com
+     *
+     * @param extendedPermission
+     * @throws IOException
      */
     public void setPermission(String extendedPermission) throws IOException {
         try {
@@ -363,18 +363,22 @@ public class FilePermissionManager {
     }
 
     /**
-     * Ottiene i permessi attuali in notazione estesa (rwxr-xr-x).
-     * @return La stringa dei permessi estesi.
-     * @throws IOException Se si verifica un errore I/O.
+     * Ottiene i permessi attuali in notazione estesa (rwxr-xr-x)
+     * @author @francescoceliento@github.com
+     *
+     * @return
+     * @throws IOException
      */
     public String getPermission() throws IOException {
         return PosixFilePermissions.toString(getCurrentPermissions());
     }
     
     /**
-     * Legge il nome del proprietario del file (chown).
-     * @return Il nome del proprietario.
-     * @throws IOException Se si verifica un errore I/O.
+     * Legge il nome del proprietario del file (chown)
+     * @author @francescoceliento@github.com
+     *
+     * @return
+     * @throws IOException
      */
     public String getOwner() throws IOException {
         checkPosixSupport();
@@ -382,9 +386,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Cambia il proprietario del file (chown).
-     * @param ownerName Il nome del nuovo proprietario.
-     * @throws IOException Se si verifica un errore I/O o l'utente non viene trovato.
+     * Cambia il proprietario del file (chown)
+     * @author @francescoceliento@github.com
+     *
+     * @param ownerName
+     * @throws IOException
      */
     public void setOwner(String ownerName) throws IOException {
         checkPosixSupport();
@@ -394,9 +400,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Legge il nome del gruppo proprietario del file (chgrp).
-     * @return Il nome del gruppo.
-     * @throws IOException Se si verifica un errore I/O.
+     * Legge il nome del gruppo proprietario del file (chgrp)
+     * @author @francescoceliento@github.com
+     *
+     * @return
+     * @throws IOException
      */
     public String getGroup() throws IOException {
         checkPosixSupport();
@@ -405,9 +413,11 @@ public class FilePermissionManager {
     }
 
     /**
-     * Cambia il gruppo proprietario del file (chgrp).
-     * @param groupName Il nome del nuovo gruppo.
-     * @throws IOException Se si verifica un errore I/O o il gruppo non viene trovato.
+     * Cambia il gruppo proprietario del file (chgrp)
+     * @author @francescoceliento@github.com
+     *
+     * @param groupName
+     * @throws IOException
      */
     public void setGroup(String groupName) throws IOException {
         checkPosixSupport();
@@ -420,10 +430,11 @@ public class FilePermissionManager {
      * Verifica l'abilitazione del permesso speciale Setuid
      * @author @francescoceliento@github.com
      *
-     * @return boolean
+     * @return
      * @throws IOException
      */
     public boolean isSetuidEnabled() throws IOException { return getSpecialAttribute("posix:suid"); }
+    
     /**
      * Imposta il permesso speciale Setuid
      * @author @francescoceliento@github.com
@@ -441,6 +452,7 @@ public class FilePermissionManager {
      * @throws IOException
      */
     public boolean isSetgidEnabled() throws IOException { return getSpecialAttribute("posix:sgid"); }
+    
     /**
      * Imposta l'abilitazione del permesso speciale Setgid
      * @author @francescoceliento@github.com
@@ -467,41 +479,4 @@ public class FilePermissionManager {
      */
     public void setStickyBitEnabled(boolean enabled) throws IOException { setSpecialAttribute("posix:sticky", enabled); }
     
-    
-    
-    
 }
-
-
-/**
-Mi serve una classe Java chiamata FilePermissionManager che mi permetta di leggere e modificare i permessi
-di qualsiasi file. Deve avere un attributo file configurabile da costruttore o da get e set
-e deve permettermi di gestire i permessi con 3 diverse modalità, un enum con i valori READ, WRITE, EXECUTABLE
-un enum con i valori USER, GROUP, OTHER, ALL (cioé valido per USER, GROUP E OTHER contemporaneamente)
-
-1. flag con metodi come questi
-.setPermission(USER, READ, true);      -- permesso di lettura abilitato per l'utente
-.setPermission(ALL, EXECUTABLE, true); -- permesso di esecuzione abilitato per tutti
-.setPermission(GROUP, WRITE, false);   -- permesso di scrittura disabilitato per il gruppo
-.getPermission(GROUP, READ);           -- verifica permesso di lettura per il gruppo
-ecc...
-
-2. chmod numerico
-.setChmod(755);  -- imposta il chmod 755
-.getChmod();     -- verifica il chmod attuale con ritorno int
-
-3. chmod simbolico
-.setChmod("g+w") -- imposta il chmod g+w
-
-4. esteso
-.setPermission("rwxr--r--");
-.getPermission(); --riceve una string
-
-mi servono anche i metodi per
-- leggere e cambiare il proprietario del file chown
-- leggere e cambiare il gruppo proprietario del file chgrp
-- leggere e definire i permessi di default umask
-- verificare, abilitare e disabilitare i permessi speciali Setuid, Setgid, Sticky Bit
-
-La classe non deve avere bisogno di librerie esterne, ma essere autonoma
-*/
