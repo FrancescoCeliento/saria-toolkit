@@ -31,9 +31,14 @@ public class MarkdownDocsGenerator {
     // Pattern per trovare un metodo con il suo Javadoc precedente.
     // Cerca: un commento Javadoc /** ... */, seguito da una dichiarazione di metodo pubblica.
     private static final Pattern METHOD_PATTERN = Pattern.compile(
-            "/\\*\\*(.*?)\\*/\\s*public\\s+(?:(?:static|final|abstract)\\s+)*\\s*\\w+\\s+(\\w+)\\s*\\([^\\)]*\\)\\s*[^{;]",
-            Pattern.DOTALL
-    );
+    	    "/\\*\\*((?:[^*]|\\*(?!/))*)\\*/\\s*" +          // Javadoc
+    	    "(?:public|protected|private)\\s+" +             // Qualsiasi visibilità
+    	    "(?:(?:static|final|abstract)\\s+)*" +           // Modificatori opzionali
+    	    "[\\w<>\\[\\]]+\\s+" +                          // Tipo di ritorno
+    	    "(\\w+)\\s*\\([^)]*\\)\\s*" +                   // Nome del metodo + parametri
+    	    "(?:\\{?|;)",                                   // Apertura graffa o punto e virgola
+    	    Pattern.DOTALL
+    	);
     
     private static final List<String> EXCLUDED_PATHS = Arrays.asList(
     		//Lista delle cartelle da escludere

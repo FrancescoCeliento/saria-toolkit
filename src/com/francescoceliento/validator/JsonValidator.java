@@ -26,7 +26,11 @@ public class JsonValidator {
 	    		"    (?<value> (?&number) | (?&boolean) | (?&string) | (?&array) | (?&object) )\n" + 
 	    		")";
 
-	    return json != null && json.matches(regex);
+	    try {
+	    	return json != null && json.matches(regex);	    	
+	    } catch (Exception e) {
+	    	return false;
+	    }
 	}
 
 }

@@ -118,34 +118,4 @@ public class FileDownloader {
         }
     }
 
-    /**
-     * Esempio di utilizzo (main method)
-     */
-    public static void main(String[] args) {
-        // Sostituisci con un URL reale e una directory di prova
-        String testUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
-        // Usa la directory temporanea del sistema per i test
-        String testDir = System.getProperty("java.io.tmpdir") + File.separator + "GeminiDownloads";
-
-        System.out.println("Directory di destinazione per i test: " + testDir);
-
-        // --- Test 1: Mantenere il nome originale ---
-        try {
-            System.out.println("\n--- Esecuzione Test 1 (Nome originale) ---");
-            String path1 = FileDownloader.download(testUrl, testDir);
-            System.out.println("Download completato e salvato in: " + path1);
-        } catch (Exception e) {
-            System.err.println("Errore nel Test 1: " + e.getMessage());
-        }
-
-        // --- Test 2: Rinominare il file ---
-        try {
-            System.out.println("\n--- Esecuzione Test 2 (Rinomina) ---");
-            String newName = "LogoDiGoogleRinominato.png";
-            String path2 = FileDownloader.download(testUrl, testDir, newName);
-            System.out.println("Download completato e salvato in: " + path2);
-        } catch (Exception e) {
-            System.err.println("Errore nel Test 2: " + e.getMessage());
-        }
-    }
 }

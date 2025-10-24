@@ -9,7 +9,7 @@ import com.francescoceliento.api.GitHubAPI;
  */
 public class Saria {
 
-	private static String version = "0.0.6";
+	private static String version = "0.0.7-alpha";
 	private static String date = "24/10/2025";
 	
 	private static String NAME = "Saria Toolkit";
